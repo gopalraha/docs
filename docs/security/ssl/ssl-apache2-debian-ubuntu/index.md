@@ -21,7 +21,7 @@ This guide will show you how to enable SSL to secure websites served through Apa
 
 ## Before You Begin
 
-This guide assumes that you are running Apache 2.4 or higher on Debian 8 or Ubuntu 14.04 or above. Prior to following this guide, ensure that the following steps have been taken on your Linode:
+This guide assumes that you are running Apache 2.4 or higher on Debian 10 or Ubuntu 18.04 or above. Prior to following this guide, ensure that the following steps have been taken on your Linode:
 
 -  Familiarize yourself with our [Getting Started](/docs/getting-started) guide and complete the steps for setting your Linode's hostname and timezone.
 
@@ -50,7 +50,12 @@ This guide assumes that you are running Apache 2.4 or higher on Debian 8 or Ubun
     ErrorLog /var/www/html/example.com/log/error.log
     CustomLog /var/www/html/example.com/log/access.log combined
 </VirtualHost>
-
+<VirtualHost *:443>
+ServerName www.example.com
+DocumentRoot /var/www/html/example.com/public_html/
+RewriteEngine on
+RewriteRule ^(/.*)$ https://%{HTTP_HOST}$1 [redirect=301]
+</VirtualHost>
 {{< /file >}}
 
 
